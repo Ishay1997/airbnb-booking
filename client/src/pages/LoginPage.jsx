@@ -1,30 +1,31 @@
 import { Link, Navigate } from "react-router-dom";
-import { useState, useContext }  from "react";
-import axios from 'axios';
+import { useState, useContext } from "react";
+import axios from "axios";
 import { UserContext } from "../UserContext";
+import { httpService } from "../services/HttpService";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
-    const{setUser}=useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   async function handelLoginSubmit(ev) {
-
     ev.preventDefault();
-    try {      
-      const {data} = await axios.post("http://localhost:4000/login", { email, password });
-      setUser(data);
-      alert('login successful');
+    try {
+      const res = await httpService.post('login', { email, password });
+      console.log("res", res);
+      // const {data} = await axios.post("http://localhost:4000/login", { email, password });
+      setUser(res);
       // Check the response and perform actions accordingly
-    setRedirect(true);
+      setRedirect(true);
     } catch (e) {
-      alert('Login failed');
+      alert("Login failed");
     }
   }
-  if (redirect){
-    return <Navigate to={"/"}/>
+  if (redirect) {
+    return <Navigate to={"/"} />;
   }
-  
+
   return (
     <div className="mt-4 grow flex items-center justify-around">
       <div className="mb-64">
