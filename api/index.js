@@ -5,6 +5,9 @@ const bcrypt = require("bcryptjs");
 const jwt=require("jsonwebtoken");
 const User = require("./models/User");
 const cookieParser = require("cookie-parser");
+const imageDownloader = require('image-downloader');
+const multer = require('multer');
+const fs = require('fs');
 require("dotenv").config();
 
 const app = express();
@@ -14,7 +17,8 @@ const port = process.env.PORT || 4000;
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret  = 'daskdfbkalsdsda';
 
-app.use(express.json()); // Add this line to parse JSON request bodies
+app.use(express.json()); 
+app.use('/uploads',express.static(__dirname+'/uploads'));
 app.use(
   cors({
     credentials: true,
@@ -39,7 +43,7 @@ app.post("/login", async (req, res) => {
       const passOk = bcrypt.compareSync(password, userDoc.password);
   
       if (passOk) {
-        jwt.sign({email:userDoc.email,id:userDoc._id},jwtSecret, {},(err,token)=>{
+        jwt.sign({email:userDoc.email,id:userDoc._id},jwtSecret, { expiresIn: '1h' },(err,token)=>{
             if(err) throw err;
             res.cookie('token',token).json(userDoc);        
         });
@@ -94,7 +98,35 @@ app.post('/logout',(req,res)=>{
    res.cookie('token','').json(true);
 });
 
+app.post('/upload-by-link', async (req,res) => {
+    const {link} = req.body;
+    const newName = 'photo' + Date.now() + '.jpg';
+    await imageDownloader.image({
+        url:link,
+        dest:__dirname + '/uploads/'+newName,
+    });
+    res.json(newName);
+});
 
+const photosMiddleware = multer({dest:'uploads/'});
+app.post('/upload',photosMiddleware.array('photos',100),(req,res)=>{
+  const uploadedFiles = [];
+for(let i = 0 ;i<req.files.length;i++){
+  const {path,originalname} = req.files[i];
+  const parts = originalname.split('.');
+  const ext = parts[parts.length - 1];
+  const newPath = path + '.'+ ext;
+  fs.renameSync(path,newPath);
+  console.log(ext);
+  console.log(path);
+  console.log(newPath);
+  console.log(uploadedFiles);
+  uploadedFiles.push(newPath.replace('uploads\\',''));
+  console.log(newPath);
+  console.log(uploadedFiles);
+}
+  res.json(uploadedFiles);
+});
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
