@@ -12,7 +12,7 @@ export default function LoginPage() {
   async function handelLoginSubmit(ev) {
     ev.preventDefault();
     try {
-      const res = await httpService.post('login', { email, password });
+      const res = await httpService.post('auth/login', { email, password });
       console.log("res", res);
       // const {data} = await axios.post("http://localhost:4000/login", { email, password });
       setUser(res);
