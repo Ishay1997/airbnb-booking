@@ -57,7 +57,7 @@ export default function PlacesFormPage() {
     setRedirect(true);
   }
   if (redirect) {
-    return <Navigate to={"account/places"} />;
+    return <Navigate to={"/account/places"} />;
   }
   return (
     <div>

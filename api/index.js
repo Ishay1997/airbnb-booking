@@ -31,6 +31,7 @@ app.use("/uploads", uploadRoutes);
 app.use("/auth", authRoutes);
 app.use("/images", imagesRoutes);
 app.use("/places", placesRoutes);
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
