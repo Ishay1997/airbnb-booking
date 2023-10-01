@@ -19,6 +19,10 @@ export default function PlacesFormPage() {
   const [maxGuests, setMaxGuests] = useState(1);
   const [redirect, setRedirect] = useState(false);
 
+  function handleAddPhotos(fileName) {
+    setAddedPhotos((prevPhotos) => [...prevPhotos, fileName]);
+  }
+
   function inputHeader(text) {
     return <h2 className="text-2xl mt-4">{text}</h2>;
   }
@@ -26,6 +30,7 @@ export default function PlacesFormPage() {
   function inputDescription(text) {
     return <p className="text-gray-500 text-sm">{text}</p>;
   }
+
   function preInput(header, description) {
     return (
       <>
@@ -34,6 +39,7 @@ export default function PlacesFormPage() {
       </>
     );
   }
+
   async function addNewPlace(ev) {
     ev.preventDefault();
     const placeData = {
@@ -47,10 +53,7 @@ export default function PlacesFormPage() {
       checkOut,
       maxGuests,
     };
-    await httpService.post('places',placeData)
-    // await axios.post("http://localhost:4000/places", placeData, {
-    //   withCredentials: true,
-    // });
+    await httpService.post("places", placeData);
     setRedirect(true);
   }
   if (redirect) {
@@ -79,7 +82,7 @@ export default function PlacesFormPage() {
           placeholder="address"
         />
         {preInput("photos", "more = better")}
-        <PhotosUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} />
+        <PhotosUploader addedPhotos={addedPhotos} onChange={handleAddPhotos} />
         {preInput("Description", "description of the place")}
         <textarea
           value={description}

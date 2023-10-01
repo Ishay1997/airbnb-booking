@@ -1,24 +1,25 @@
-import axios from 'axios';
-import { createContext, useEffect , useState} from 'react';
-import {data} from "autoprefixer";
-export const UserContext =createContext({});
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
+import { data } from "autoprefixer";
+import { AuthService } from "./services/AuthService";
+export const UserContext = createContext({});
 
-export function UserContextProvider({children}){
-    const [user,setUser]=useState(null);
-    const [ready,setReady]=useState(false);
-    useEffect(()=>{
-        if(!user){
-            axios.get('http://localhost:4000/profile').then(({data})=>{ 
-                setUser(data);
-                setReady(true);
-        });
-        }
-    },[]);
+export function UserContextProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [ready, setReady] = useState(false);
 
-    return (
-    <UserContext.Provider value={{user,setUser,ready}}>
-        {children}
+  useEffect(() => {
+    if (!user) {
+      AuthService.loginWithToken().then((data) => {
+        setUser(data);
+        setReady(true);
+      });
+    } else setReady(true);
+  }, [user, setUser, setReady]);
+
+  return (
+    <UserContext.Provider value={{ user, setUser, ready }}>
+      {children}
     </UserContext.Provider>
-        
-    );
+  );
 }

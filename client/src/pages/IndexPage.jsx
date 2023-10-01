@@ -1,9 +1,10 @@
+import { useContext, useEffect } from "react";
 import Header from "../Header";
+import { AuthService } from "../services/AuthService";
+import { UserContext } from "../UserContext";
 
-export default function IndexPage(){
-return(
-<div>
-    index page here
-</div>
-)
-};
+export default function IndexPage() {
+  const { ready, user, setUser } = useContext(UserContext);
+
+  return <div>index page here</div>;
+}

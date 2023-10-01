@@ -6,21 +6,21 @@ import { Link } from "react-router-dom";
 export default function Header() {
   const { user, setUser } = useContext(UserContext);
 
-  useEffect(() => {
-    // Fetch user data from the /profile route
-    axios
-      .get("http://localhost:4000/profile")
-      .then((response) => {
-        setUser(response.data);
-      })
-      .catch((error) => {
-        // Handle the error here, e.g., clear user data and token
-        setUser(null); // Clear user data
-        // Clear the token from cookies (if using a cookie library)
-      });
-  }, [setUser]);
+  // useEffect(() => {
+  //   // Fetch user data from the /profile route
+  //   axios
+  //     .get("http://localhost:4000/profile")
+  //     .then((response) => {
+  //       setUser(response.data);
+  //     })
+  //     .catch((error) => {
+  //       // Handle the error here, e.g., clear user data and token
+  //       setUser(null); // Clear user data
+  //       // Clear the token from cookies (if using a cookie library)
+  //     });
+  // }, [setUser]);
 
-
+  console.log('HEADER_USER',user)
 
     return(
         <div >
