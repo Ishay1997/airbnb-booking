@@ -26,6 +26,7 @@ exports.login = async (req, res) => {
 exports.loginWithToken = async (req, res) => {
   try {
     const { token } = req.cookies;
+
     if (!token) return res.json(null);
 
     const userData = await getUserByToken(token);
@@ -48,5 +49,5 @@ exports.register = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-  res.cookie("token", "").json(true);
+  res.clearCookie("token").json(true);
 };

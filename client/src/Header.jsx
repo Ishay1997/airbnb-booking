@@ -20,8 +20,6 @@ export default function Header() {
   //     });
   // }, [setUser]);
 
-  console.log('HEADER_USER',user)
-
     return(
         <div >
         <header className="flex justify-between">

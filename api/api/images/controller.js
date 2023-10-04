@@ -1,6 +1,5 @@
 const fs = require('fs');
-const { uploadFile, downloadFile } = require('./service');
-
+const { uploadFile, downloadFile ,getUserByToken} = require('./service');
 exports.upload = async (req, res) => {
   const { files } = req;
   const uploadedFiles = [];

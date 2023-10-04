@@ -6,5 +6,6 @@ import { UserContext } from "../UserContext";
 export default function IndexPage() {
   const { ready, user, setUser } = useContext(UserContext);
 
+  console.log('Index Page RENDER')
   return <div>index page here</div>;
 }

@@ -5,10 +5,9 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 const app = express();
-
 const corsOptions = {
   credentials: true,
-  origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+  origin: ["http://localhost:5173", "http://127.0.0.1:5173"]
 };
 
 app.use(cors(corsOptions));
@@ -32,6 +31,14 @@ app.use("/auth", authRoutes);
 app.use("/images", imagesRoutes);
 app.use("/places", placesRoutes);
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+// app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });
+
+const ipAddress = '127.0.0.1'
+
+app.listen(port, ipAddress, () => {
+  console.log(`API server is running on ${ipAddress}:${port}`);
 });
+
+module.exports = app;

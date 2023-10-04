@@ -61,7 +61,6 @@ export default function PlacesFormPage() {
   }
   return (
     <div>
-      <AccountNav />
       <form onSubmit={addNewPlace}>
         {preInput(
           "Title",

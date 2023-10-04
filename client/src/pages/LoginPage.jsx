@@ -1,5 +1,5 @@
 import { Link, Navigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { UserContext } from "../UserContext";
 import { AuthService } from "../services/AuthService";
@@ -14,7 +14,7 @@ export default function LoginPage() {
     ev.preventDefault();
     try {
       const res = await AuthService.login(email, password);
-      // const {data} = await axios.post("http://localhost:4000/login", { email, password });
+      //  const {res} = await axios.post(`http://localhost:4000/auth/login`, { email, password });
       setUser(res);
       // Check the response and perform actions accordingly
       setRedirect(true);

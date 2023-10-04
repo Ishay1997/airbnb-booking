@@ -1,7 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { createNewPlace } = require('./controller');
+const { getPlaces, createNewPlace, getAccountPlaces } = require("./controller");
 
-router.post('/', createNewPlace);
+router.get("/", getPlaces);
+router.post("/", createNewPlace);
+// router.get('',getAccountPlaces)
 
 module.exports = router;
