@@ -55,9 +55,6 @@ export default function PlacesPage() {
         {places.length > 0 &&
           places.map((place, index) => (
             <PlacePreview key={index} place={place} />
-            /* <div key={index}>
-              {place.title}
-            </div> */
           ))}
       </div>
     </div>

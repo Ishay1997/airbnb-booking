@@ -18,10 +18,9 @@ export default function PlacesFormPage() {
   const [checkOut, setCheckOut] = useState("");
   const [maxGuests, setMaxGuests] = useState(1);
   const [redirect, setRedirect] = useState(false);
+  const [price,setPrice]=useState(100);
 
-  function handleAddPhotos(fileName) {
-    setAddedPhotos((prevPhotos) => [...prevPhotos, fileName]);
-  }
+
 
   function inputHeader(text) {
     return <h2 className="text-2xl mt-4">{text}</h2>;
@@ -52,6 +51,7 @@ export default function PlacesFormPage() {
       checkIn,
       checkOut,
       maxGuests,
+      price,
     };
     await httpService.post("places", placeData);
     setRedirect(true);
@@ -81,7 +81,7 @@ export default function PlacesFormPage() {
           placeholder="address"
         />
         {preInput("photos", "more = better")}
-        <PhotosUploader addedPhotos={addedPhotos} onChange={handleAddPhotos} />
+        <PhotosUploader addedPhotos={addedPhotos} setAddedPhotos={setAddedPhotos} />
         {preInput("Description", "description of the place")}
         <textarea
           value={description}
@@ -126,6 +126,14 @@ export default function PlacesFormPage() {
               type="number"
               value={maxGuests}
               onChange={(ev) => setMaxGuests(ev.target.value)}
+            />
+          </div>
+          <div>
+            <h3 className="mt-2 -mb-1">price</h3>
+            <input
+              type="number"
+              value={price}
+              onChange={(ev) => setPrice(ev.target.value)}
             />
           </div>
         </div>

@@ -24,6 +24,7 @@ mongoose.connect(process.env.MONGO_URL, {
 const authRoutes = require("./api/auth/routes");
 const imagesRoutes = require("./api/images/routes");
 const placesRoutes = require("./api/places/routes");
+
 const uploadRoutes = express.static(__dirname + "/uploads");
 
 app.use("/uploads", uploadRoutes);
@@ -36,7 +37,7 @@ app.use("/places", placesRoutes);
 // });
 
 const ipAddress = '127.0.0.1'
-
+ 
 app.listen(port, ipAddress, () => {
   console.log(`API server is running on ${ipAddress}:${port}`);
 });

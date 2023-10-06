@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { AuthService } from "../services/AuthService";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -10,13 +11,10 @@ export default function RegisterPage() {
   async function registerUser(ev) {
     ev.preventDefault();
     try {
-      await axios.post("http://localhost:4000/register", {
-        name: name,
-        email: email,
-        password: password,
-      });
+      const res = await AuthService.register(name,email,password)
       alert("Registration succesful, you can log in");
-    } catch (e) {
+    }
+     catch (e) {
       alert("Registration failed. please try again");
     }
   }

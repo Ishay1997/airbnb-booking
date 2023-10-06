@@ -16,8 +16,12 @@ const logout = async () => {
   await httpService.post(BASE_URL + "logout");
 };
 
-
+const register = async (name, email, password) => {
+const user = await httpService.post(BASE_URL + "register", {name, email, password });
+return user;
+};
 export const AuthService = {
+  register,
   login,
   logout,
   loginWithToken,

@@ -10,7 +10,7 @@ exports.createPlace = async (user, data) => {
     price,
     title,
     address,
-    photos: addedPhotos,
+    addedPhotos,
     description,
     perks,
     extraInfo,
